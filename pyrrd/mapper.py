@@ -1,4 +1,4 @@
-from pyrrd.__xml import RRDXMLNode
+from pyrrd.node import RRDXMLNode
 from pyrrd.external import load
 
 

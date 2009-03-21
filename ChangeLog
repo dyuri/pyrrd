@@ -4,6 +4,10 @@
   - Moved pyrrd.xml to pyrrd.__xml to not conflict with stdlib xml namespace.
   - Fixed loading of existing RRDs when expected attributes are not there,
     specifically when RRAs are for Holt-Winters.
+* Renamed __xml to node.
+* Updated unit tests.
+* Added missing docstrings.
+* Formatted contributed code.
 
 2009.01.31
 
@@ -13,6 +17,7 @@
 * Updated TODO.
 * Updated the RRD class so that manual calls to load are not necessary if an
 RRD instance is created with the mode="r" parameter.
+* Updated TODO.
 
 2009.01.30
 
