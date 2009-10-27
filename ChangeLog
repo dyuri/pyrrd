@@ -1,7 +1,11 @@
 2009.10.27
 
 * Fixed failing epoch test.
-* Another change.
+* Sync'ed Launchpad and Google repos.
+
+2009.07.02
+
+* Added a test file for pushing up to launchpad.
 
 2009.07.01
 
