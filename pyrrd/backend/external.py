@@ -14,18 +14,15 @@ def _cmd(command, args):
     else:
         close_fds = True
     command = "rrdtool %s %s" % (command, args)
-    process = Popen(command, shell=True, stdin=PIPE, stdout=PIPE,
+    process = Popen(command, shell=True, stdin=PIPE, stdout=PIPE, 
                     close_fds=close_fds)
-    stdout, stderr = (process.stdout, process.stderr)
-    err = output = None
-    try:
-        err = stderr.read()
-    except:
-        output = stdout.read()
-    if err:
-        raise Exception, err
-    else:
-        return output
+    (stdout, stderr) = process.communicate()
+    if stderr:
+        raise Exception(stderr)
+    if (process.returncode != 0):
+        errmsg = "returncode from %s was %s" % (command, process.returncode,)
+        raise Exception(errmsg)
+    return stdout
 
 
 def concat(args):
