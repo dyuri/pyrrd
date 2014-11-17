@@ -58,13 +58,13 @@ def _validateReST(text):
     """
     import docutils.utils
     import docutils.parsers.rst
-    import StringIO
+    import io
 
     doc = docutils.utils.new_document('validator')
     # our desired settings
     doc.reporter.halt_level = 5
     doc.reporter.report_level = 1
-    stream = doc.reporter.stream = StringIO.StringIO()
+    stream = doc.reporter.stream = io.StringIO()
     # docutils buglets (?)
     doc.settings.tab_width = 2
     doc.settings.pep_references = doc.settings.rfc_references = False
@@ -82,7 +82,7 @@ def validateReST(text):
     """
     if hasDocutils():
         return _validateReST(text)
-    print " *** No docutils; can't validate ReST."
+    print(" *** No docutils; can't validate ReST.")
     return ''
 
 
@@ -102,7 +102,7 @@ def catReST(*args, **kwds):
             f.close()
             tmp.append('\n\n')
         else:
-            print "Warning: '%s' not a legal ReST filename."
+            print("Warning: '%s' not a legal ReST filename.")
             tmp.append(arg)
     if len(tmp) == 1:
         res = tmp[0]
@@ -118,14 +118,14 @@ def catReST(*args, **kwds):
         f.close()
         report = validateReST(res)
         if report:
-            print report
+            print(report)
             if stop_on_errors:
-                print 'ReST validation error'
-                print
-                print 'See the following:'
-                print '  http://docutils.sourceforge.net/docs/user/rst/cheatsheet.txt'
-                print '  http://docutils.sourceforge.net/docs/user/rst/quickstart.html'
-                print
+                print('ReST validation error')
+                print()
+                print('See the following:')
+                print('  http://docutils.sourceforge.net/docs/user/rst/cheatsheet.txt')
+                print('  http://docutils.sourceforge.net/docs/user/rst/quickstart.html')
+                print()
                 raise ValueError('ReST validation error')
     return res
 

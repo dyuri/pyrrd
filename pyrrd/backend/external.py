@@ -129,7 +129,7 @@ def fetch(filename, query):
     The benefits of using an approach like this become obvious when the RRD
     file has multiple DSs and RRAs.
     """
-    output = fetchRaw(filename, concat(query))
+    output = fetchRaw(filename, concat(query)).decode("utf-8")
     lines = [line for line in output.split('\n') if line]
     dsNames = lines[0].split()
     results = {
@@ -139,7 +139,7 @@ def fetch(filename, query):
     for line in lines[2:]:
         time, data = line.split(":")
         data = [common.coerce(datum) for datum in data.split()]
-        results["time"][int(time)] = dict(zip(dsNames, data))
+        results["time"][int(time)] = dict(list(zip(dsNames, data)))
         for dsName, datum in zip(dsNames, data):
             results["ds"].setdefault(dsName, [])
             results["ds"][dsName].append((int(time), common.coerce(datum)))
@@ -258,8 +258,8 @@ def prepareObject(function, obj):
     if function == 'create':
         validParams = ['start', 'step']
         params = common.buildParameters(obj, validParams)
-        data = [unicode(x) for x in obj.ds]
-        data += [unicode(x) for x in obj.rra]
+        data = [str(x) for x in obj.ds]
+        data += [str(x) for x in obj.rra]
         return (obj.filename, params + data)
 
     elif function == 'update':
@@ -293,7 +293,7 @@ def prepareObject(function, obj):
             'force_rules_legend', 'tabwidth', 'base', 'color', 'imgformat',
             'slope_mode']
         params = common.buildParameters(obj, validParams)
-        data = [unicode(x) for x in obj.data]
+        data = [str(x) for x in obj.data]
         return (obj.filename, params + data)
 
 

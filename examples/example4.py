@@ -42,7 +42,7 @@ myRRD.create()
 
 # let's generate some data...
 currentTime = startTime
-for i in xrange(maxSteps):
+for i in range(maxSteps):
     currentTime += step
     # lets update the RRD/purge the buffer ever 100 entires
     if i % 100 == 0:

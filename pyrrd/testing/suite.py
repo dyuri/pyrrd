@@ -6,7 +6,7 @@ import glob
 import os
 import tempfile
 import unittest
-from StringIO import StringIO
+from io import StringIO
 
 
 def importModule(name):

@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 import os
 import sys
 import tempfile
@@ -54,7 +54,7 @@ class BindingsBackendTestCase(TestCase):
             if obtained.startswith("filename"):
                 self.assertTrue(expected.strip().startswith("filename"))
             else:
-                self.assertEquals(obtained.strip(), expected.strip())
+                self.assertEqual(obtained.strip(), expected.strip())
 
     def test_infoReadMode(self):
         expectedOutput = """
@@ -92,10 +92,10 @@ class BindingsBackendTestCase(TestCase):
         rrd.info(useBindings=True, stream=output)
         for obtained, expected in zip(
             output.getvalue().split("\n"), expectedOutput):
-            print "obtained:", obtained
-            print "expected:", expected
+            print(("obtained:", obtained))
+            print(("expected:", expected))
             if obtained.startswith("filename"):
                 self.assertTrue(expected.strip().startswith("filename"))
             else:
-                self.assertEquals(obtained.strip(), expected.strip())
+                self.assertEqual(obtained.strip(), expected.strip())
         sys.stdout = originalStdout
