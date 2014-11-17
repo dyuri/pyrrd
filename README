@@ -254,3 +254,8 @@ we'll cleanup::
     >>> os.path.isfile(filename)
     True
     >>> os.unlink(filename)
+
+===================
+Original repository
+===================
+http://code.google.com/p/pyrrd/
