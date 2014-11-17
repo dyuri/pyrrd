@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 import os
 import sys
 import tempfile
@@ -29,7 +29,7 @@ class ExternalBackendTestCase(TestCase):
                     "step)")
         try:
             self.rrd.update()
-        except ExternalCommandError, error:
+        except ExternalCommandError as error:
             self.assertTrue(str(error).startswith("ERROR:"))
             self.assertTrue(str(error).endswith(expected))
 
@@ -66,5 +66,5 @@ class ExternalBackendTestCase(TestCase):
             if obtained.startswith("filename"):
                 self.assertTrue(expected.strip().startswith("filename"))
             else:
-                self.assertEquals(obtained.strip(), expected.strip())
+                self.assertEqual(obtained.strip(), expected.strip())
         sys.stdout = originalStdout

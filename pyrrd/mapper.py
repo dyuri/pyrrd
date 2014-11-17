@@ -14,7 +14,7 @@ class Mapper(object):
     __skip_repr__ = []
 
     def setAttributes(self, attributes):
-        for name, value in attributes.items():
+        for name, value in list(attributes.items()):
             if name not in self.__skip_repr__:
                 setattr(self, name, value)
 
@@ -31,10 +31,10 @@ class Mapper(object):
         self.setAttributes(node.attributes)
 
     def printInfo(self):
-        for name, value in self.getData().items():
+        for name, value in list(self.getData().items()):
             if value is None:
                 continue
-            print "%s = %s" % (name, unicode(value))
+            print(("%s = %s" % (name, str(value))))
 
 
 class RowMapper(Mapper):
@@ -64,11 +64,11 @@ class CDPrepDSMapper(Mapper):
         ]
 
     def printInfo(self, prefix, index):
-        for name, value in self.getData().items():
+        for name, value in list(self.getData().items()):
             if value is None:
                 continue
-            print "%s.cdp_prep[%s].%s = %s" % (
-                prefix, index, name, unicode(value))
+            print(("%s.cdp_prep[%s].%s = %s" % (
+                prefix, index, name, str(value))))
 
 
 class CDPPrepMapper(Mapper, DSMixin):
@@ -114,10 +114,10 @@ class RRAMapper(Mapper, DSMixin):
 
     def printInfo(self, index):
         prefix = "rra[%s]" % index
-        for name, value in self.getData().items():
+        for name, value in list(self.getData().items()):
             if value is None:
                 continue
-            print "%s.%s = %s" % (prefix, name, unicode(value))
+            print(("%s.%s = %s" % (prefix, name, str(value))))
         for index, ds in enumerate(self.ds):
             ds.printInfo(prefix, index)
 
@@ -138,11 +138,11 @@ class DSMapper(Mapper):
         ]
 
     def printInfo(self):
-        for name, value in self.getData().items():
+        for name, value in list(self.getData().items()):
             if value is None:
                 continue
             if name != self.name:
-                print "ds[%s].%s = %s" % (self.name, name, unicode(value))
+                print(("ds[%s].%s = %s" % (self.name, name, str(value))))
 
 
 class RRDMapper(Mapper, DSMixin):

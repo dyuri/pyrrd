@@ -157,8 +157,8 @@ def _cmd(command, args, debug=False):
     # right now)
     args = [str(x) for x in args]
     if debug:
-        print "function:", function
-        print "args:", args
+        print(("function:", function))
+        print(("args:", args))
     return function(*args)
 
 
@@ -444,8 +444,8 @@ def prepareObject(function, obj):
     if function == 'create':
         validParams = ['start', 'step']
         params = buildParameters(obj, validParams)
-        params += [unicode(x) for x in obj.ds]
-        params += [unicode(x) for x in obj.rra]
+        params += [str(x) for x in obj.ds]
+        params += [str(x) for x in obj.rra]
         return (obj.filename, params)
 
     if function == 'update':
@@ -478,7 +478,7 @@ def prepareObject(function, obj):
             'force_rules_legend', 'tabwidth', 'base', 'color', 'imgformat',
             'slope_mode']
         params = buildParameters(obj, validParams)
-        params += [unicode(x) for x in obj.data]
+        params += [str(x) for x in obj.data]
         return (obj.filename, params)
 
 

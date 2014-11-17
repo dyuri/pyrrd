@@ -34,7 +34,7 @@ def discover(loader, top_level_directory):
 
 
 def get_suite(loader, top_level_directory, options):
-    print options.test_specific
+    print((options.test_specific))
     if options.test_specific:
         suite = loader.loadTestsFromName(options.test_specific)
     elif hasattr(loader, "discover"):

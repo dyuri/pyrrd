@@ -28,49 +28,49 @@ class RRDMapperTestCase(TestCase):
 
     def test_map(self):
         rrd = self.makeMapper()
-        self.assertEquals(rrd.version, 3)
-        self.assertEquals(rrd.step, 300)
-        self.assertEquals(rrd.lastupdate, 920804400)
+        self.assertEqual(rrd.version, 3)
+        self.assertEqual(rrd.step, 300)
+        self.assertEqual(rrd.lastupdate, 920804400)
 
     def test_mapDS(self):
         rrd = self.makeMapper()
-        self.assertEquals(len(rrd.ds), 1)
+        self.assertEqual(len(rrd.ds), 1)
         ds = rrd.ds[0]
-        self.assertEquals(ds.name, "speed")
-        self.assertEquals(ds.type, "COUNTER")
-        self.assertEquals(ds.minimal_heartbeat, 600)
-        self.assertEquals(ds.min, "NaN")
-        self.assertEquals(ds.max, "NaN")
+        self.assertEqual(ds.name, "speed")
+        self.assertEqual(ds.type, "COUNTER")
+        self.assertEqual(ds.minimal_heartbeat, 600)
+        self.assertEqual(ds.min, "NaN")
+        self.assertEqual(ds.max, "NaN")
 
     def test_mapRRA(self):
         rrd = self.makeMapper()
-        self.assertEquals(len(rrd.rra), 2)
+        self.assertEqual(len(rrd.rra), 2)
         rra1 = rrd.rra[0]
-        self.assertEquals(rra1.cf, "AVERAGE")
-        self.assertEquals(rra1.pdp_per_row, 1)
+        self.assertEqual(rra1.cf, "AVERAGE")
+        self.assertEqual(rra1.pdp_per_row, 1)
         rra2 = rrd.rra[1]
-        self.assertEquals(rra2.cf, "AVERAGE")
-        self.assertEquals(rra2.pdp_per_row, 6)
+        self.assertEqual(rra2.cf, "AVERAGE")
+        self.assertEqual(rra2.pdp_per_row, 6)
 
     def test_mapRRAParams(self):
         rrd = self.makeMapper()
         rra1 = rrd.rra[0]
-        self.assertEquals(rra1.xff, 0.5)
+        self.assertEqual(rra1.xff, 0.5)
         rra2 = rrd.rra[1]
-        self.assertEquals(rra2.xff, 0.5)
+        self.assertEqual(rra2.xff, 0.5)
 
     def test_mapRRACDPPrep(self):
         rrd = self.makeMapper()
         ds1 = rrd.rra[0].ds
-        self.assertEquals(len(ds1), 1)
-        self.assertEquals(ds1[0].primary_value, 0.0)
-        self.assertEquals(ds1[0].secondary_value, 0.0)
-        self.assertEquals(str(ds1[0].value), str(NaN()))
-        self.assertEquals(ds1[0].unknown_datapoints, 0)
+        self.assertEqual(len(ds1), 1)
+        self.assertEqual(ds1[0].primary_value, 0.0)
+        self.assertEqual(ds1[0].secondary_value, 0.0)
+        self.assertEqual(str(ds1[0].value), str(NaN()))
+        self.assertEqual(ds1[0].unknown_datapoints, 0)
         ds2 = rrd.rra[1].ds
-        self.assertEquals(len(ds2), 1)
-        self.assertEquals(len(ds1), 1)
-        self.assertEquals(ds2[0].primary_value, 0.0)
-        self.assertEquals(ds2[0].secondary_value, 0.0)
-        self.assertEquals(str(ds2[0].value), str(NaN()))
-        self.assertEquals(ds2[0].unknown_datapoints, 0)
+        self.assertEqual(len(ds2), 1)
+        self.assertEqual(len(ds1), 1)
+        self.assertEqual(ds2[0].primary_value, 0.0)
+        self.assertEqual(ds2[0].secondary_value, 0.0)
+        self.assertEqual(str(ds2[0].value), str(NaN()))
+        self.assertEqual(ds2[0].unknown_datapoints, 0)

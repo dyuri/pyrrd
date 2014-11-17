@@ -21,12 +21,12 @@ def coerce(value):
     try:
         return float(value)
     except ValueError:
-        value = unicode(value).lower()
+        value = str(value).lower()
         if value in ["unkn", "u"]:
             return None
         elif value == "nan":
             return NaN()
-    raise ValueError, "Unexpected type for data (%s)" % value
+    raise ValueError("Unexpected type for data (%s)" % value)
 
 
 def iterParse(lines):
@@ -90,7 +90,7 @@ def buildParameters(obj, validList):
             param = param.replace("_", "-")
             if isinstance(attr, bool):
                 attr = ""
-            params.extend(["--%s" % param, unicode(attr)])
+            params.extend(["--%s" % param, str(attr)])
     return [x for x in params if x]
 
 

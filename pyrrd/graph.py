@@ -21,10 +21,10 @@ def validateVName(name):
     ValueError: Names must be shorter than 255 characters
     '''
     if name != re.sub('[^A-Za-z0-9_-]', '', name):
-        raise ValueError, "Names must consist only of the characters " + \
-            "A-Z, a-z, 0-9, -, _"
+        raise ValueError("Names must consist only of the characters " + \
+            "A-Z, a-z, 0-9, -, _")
     if len(name) > 255:
-        raise ValueError, "Names must be shorter than 255 characters"
+        raise ValueError("Names must be shorter than 255 characters")
     return name
 
 def escapeColons(data):
@@ -54,8 +54,8 @@ def validateObjectType(instance, objType):
     '''
     if isinstance(instance, objType):
         return instance
-    raise TypeError, "%s instance is not of type %s" % (
-        type(instance).__name__, objType.__name__)
+    raise TypeError("%s instance is not of type %s" % (
+        type(instance).__name__, objType.__name__))
 
 def validateImageFormat(format):
     '''
@@ -74,8 +74,8 @@ def validateImageFormat(format):
         return format
     else:
         valid = ' '.join(valid)
-        raise ValueError, 'The image format must be one of the ' + \
-            'following: %s' % valid
+        raise ValueError('The image format must be one of the ' + \
+            'following: %s' % valid)
 
 class DataDefinition(object):
     '''
@@ -163,7 +163,7 @@ class DataDefinition(object):
             self.cdef):
             msg = ("vname, rrdfile, dsName, and cdef " +
                 "are all required attributes and cannot be None.")
-            raise ValueError, msg
+            raise ValueError(msg)
         main = 'DEF:%(vname)s=%(rrdfile)s:%(dsName)s:%(cdef)s' % (
             self.__dict__)
         tail = ''
@@ -220,9 +220,9 @@ class VariableDefinition(object):
     '''
     def __init__(self, vname=None, rpn=None):
         if vname == None:
-            raise ValueError, "You must provide a variable definition name."
+            raise ValueError("You must provide a variable definition name.")
         if rpn == None:
-            raise ValueError, "You must provide an RPN statement(s)."
+            raise ValueError("You must provide an RPN statement(s).")
         self.vname = validateVName(vname)
         self.rpn = rpn
         self.abbr = 'VDEF'
@@ -477,12 +477,12 @@ class Line(object):
         self.stack = stack
         if value:
             if not (isinstance(value, str) or isinstance(value, int)):
-                raise ValueError, "The parameter 'value' must be " + \
-                    "either a string or an integer."
+                raise ValueError("The parameter 'value' must be " + \
+                    "either a string or an integer.")
         else:
             if not defObj:
-                raise Exception, "You must provide either a value " + \
-                    "or a definition object."
+                raise Exception("You must provide either a value " + \
+                    "or a definition object.")
             else:
                 value = defObj.vname
         self.vname = value
@@ -495,7 +495,7 @@ class Line(object):
         '''
         main = self.abbr
         if self.width:
-            main += unicode(self.width)
+            main += str(self.width)
         main += ':%s' % self.vname
         if self.color:
             main += self.color
@@ -551,23 +551,23 @@ class GraphTick(object):
     '''
     def __init__(self, defObj=None, color=None, fraction=None, legend=''):
         if not defObj:
-            raise Exception, "You must provide either a value " + \
-                "or a definition object."
+            raise Exception("You must provide either a value " + \
+                "or a definition object.")
         else:
             value1 = defObj.vname
 
         if fraction:
             if not (isinstance(fraction, float) or isinstance(fraction, int)):
-                raise TypeError, "The parameter 'fraction' must" + \
-                        "be a float value between 0 and 1."
+                raise TypeError("The parameter 'fraction' must" + \
+                        "be a float value between 0 and 1.")
             else:
                 if 0 <= fraction <= 1:
                     value2 = fraction
                 else:
-                    raise ValueError, "The parameter 'fraction' must" + \
-                        "be a value between 0 and 1."
+                    raise ValueError("The parameter 'fraction' must" + \
+                        "be a value between 0 and 1.")
         if not color:
-            raise ValueError, "Missing required parameter color"
+            raise ValueError("Missing required parameter color")
 
 
         self.vname = value1
@@ -682,7 +682,7 @@ class ColorAttributes(object):
 
     def __repr__(self):
         joiner = ' --color '
-        params = self.__dict__.items()
+        params = list(self.__dict__.items())
         params.sort()
         attrs = [ name.upper()+color for name,color in params if color ]
         return joiner.join(attrs)
@@ -847,7 +847,7 @@ class Graph(object):
         '''
         data = self.backend.prepareObject('graph', self)
         if debug:
-            print data
+            print(data)
         self.backend.graph(*data)
 
 
