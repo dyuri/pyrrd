@@ -15,7 +15,7 @@ setup(
     packages=dist.findPackages(),
     long_description=dist.catReST(
         "docs/PRELUDE.txt",
-        "README",
+        "README.rst",
         "TODO",
         "docs/HISTORY.txt",
         "docs/ACKNOWLEDGEMENTS.txt",
