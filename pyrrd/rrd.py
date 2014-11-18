@@ -168,8 +168,10 @@ class RRD(mapper.RRDMapper):
     # for backwards compatibility
     bufferValues = bufferValue
 
-    def create(self, debug=False):
+    def create(self, debug=False, overwrite=False):
         data = self.backend.prepareObject('create', self)
+        if not overwrite:
+            data[1].append('--no-overwrite')
         if debug:
             print(data)
         self.backend.create(*data)

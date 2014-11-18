@@ -1,0 +1,8 @@
+syntax: glob
+
+*.pyc
+*~
+build/*
+.ropeproject
+dist/*
+PyRRD.egg-info
